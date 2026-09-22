@@ -14,11 +14,8 @@ function App() {
         <CssBaseline/>
         <Button variant="contained">Hello world</Button>
         <AddAlarmIcon color='warning' fontSize='medium'/>
-        <Slider sx={{
+        <Slider disabled={true} sx={{
           color : "success.dark",
-          ".MuiSlider-root" : {
-            backgroundColor : "success.main"
-          },
           ".MuiSlider-rail" : {
             backgroundColor : "error.light"
           },
@@ -27,6 +24,12 @@ function App() {
           },
           ".MuiSlider-track" : {
             backgroundColor : "warning.dark"
+          },
+          "&:hover" : {
+            backgroundColor : "success.light"
+          },
+          "&.Mui-disabled .MuiSlider-thumb" : {
+            backgroundColor : "warning.light"
           }
         }}/>
       </Stack>
