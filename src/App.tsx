@@ -1,21 +1,37 @@
 import './App.css'
-import {Button, CssBaseline, Container, Stack, Slider, styled, type SliderType} from '@mui/material'
+import {Button, CssBaseline, Container, Stack, Slider, styled, type SliderProps, ThemeProvider, createTheme} from '@mui/material'
 import AddAlarmIcon from '@mui/icons-material/AddAlarm';
 import {AddAlarm} from '@mui/icons-material'
 
-function App() {
-  type CustomSliderProps = SliderType & {
+  // For the dynamic overrride of the Slider in CustomSlider also with shouldForwardProps, a type alias or interface can be used, mui doc sticks to interface 
+  // type CustomSliderProps = SliderProps & {error? : boolean}
+  interface CustomSliderPropsInterface extends SliderProps{
     error? : boolean
   }
   const CustomSlider = styled(Slider, {
     shouldForwardProp : (prop) => prop !== "error"
-  })<CustomSliderProps>(({theme, error}) => ({
+  })<CustomSliderPropsInterface>(({theme, error}) => ({
     width : theme.spacing(20),
     color : theme.palette.primary.main,
     ...(error && {backgroundColor : theme.palette.error.main})
   }))
+
+  const appTheme = createTheme({
+    typography : {
+      fontSize : 15,
+
+    },
+    components : {
+    },
+    palette : {
+
+    }
+  })
+function App() {
+
   return (
-    <Container maxWidth="md">
+    <ThemeProvider theme={appTheme}>
+          <Container maxWidth="md">
       <Stack spacing={3}>
         <Button startIcon={
         <AddAlarm color='success' fontSize='large'/>} variant='contained'>Hi Everyone</Button>
@@ -30,6 +46,7 @@ function App() {
         <CustomSlider error/>
       </Stack>
     </Container>
+    </ThemeProvider>
   )
 }
 
